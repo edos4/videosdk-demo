@@ -75,3 +75,4 @@ end
 gem "esbuild-rails", "~> 0.1.4"
 
 gem "devise", "~> 4.9"
+gem 'stripe'
