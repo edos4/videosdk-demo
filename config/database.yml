@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= 35 %>
+  checkout_timeout: 60
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: localhost
+
+development:
+  <<: *default
+  database: admin_now_development
+
+test:
+  <<: *default
+  database: admin_now_test
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
