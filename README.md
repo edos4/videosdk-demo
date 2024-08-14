@@ -1,6 +1,7 @@
 # README
 
 Demo for Rails, VideoSDK, and Stripe 
+GitHub Project at: https://github.com/users/edos4/projects/10
 
 * Ruby version
 
