@@ -1,0 +1,60 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+env:
+  STRIPE_SIGNING_SECRET: whsec_ffa22557d2172e6954efaede391e85fd4942a9cea791db4547f2ec9454b54c60
+  STRIPE_SECRET_KEY: sk_test_51HedxaEuXChiwR2OB33jV2FSvlK0Yn9ARHiyJkavGjFYst9Okhd67GVqX8k9GsSC54WsnhVXeP0cdZRPcMA7RRIq00z3OsDApU
+  STRIPE_PUBLISHABLE_KEY: pk_test_51HedxaEuXChiwR2OH4QfHwoMdriZkGCBUT9wNen984NhkDLB0SZhfkIVMp9TL3UI5WU5Rgwb9ycTQnLg9F4q1ZUV00zmlwW1Yy
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      HOST: "localhost:3000"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Build JS
+        run: npm run build
+      - name: Build CSS
+        run: npm run build:css
+
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: "bin/rails db:schema:load"
+      # Add or replace test runners here
+      #- name: Run tests
+      #  run: "bundle exec spring rspec"
