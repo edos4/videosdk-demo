@@ -94,6 +94,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.8.1)
     erubi (1.13.0)
     esbuild-rails (0.1.4)
       rails (>= 6.0.0)
@@ -239,6 +240,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  dotenv
   esbuild-rails (~> 0.1.4)
   jbuilder
   jsbundling-rails
