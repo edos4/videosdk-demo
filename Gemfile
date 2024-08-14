@@ -71,3 +71,5 @@ group :test do
   gem "webdrivers"
 
 end
+
+gem "esbuild-rails", "~> 0.1.4"

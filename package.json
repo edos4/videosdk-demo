@@ -5,10 +5,14 @@
     "esbuild": "^0.23.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --loader:.js=jsx",
+    "build:css": "esbuild app/assets/stylesheets/application.css --bundle --outdir=app/assets/builds",
+    "watch": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --loader:.js=jsx --watch"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.5"
+    "@hotwired/turbo-rails": "^8.0.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
