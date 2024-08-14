@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :payments, only: [:new, :create]
   devise_for :users
   get 'video/index'
   root "home#index"
